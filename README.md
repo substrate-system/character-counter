@@ -17,7 +17,7 @@ inspired by Bluesky's post composer.
 ## _Featuring_
 
 - **[No Shadow DOM](https://gomakethings.com/podcast/the-shadow-dom-is-an-anti-pattern/)**
-- **Accessible** - ARIA labels and screen reader support
+- ARIA labels and screen reader support
 
 <details><summary><h2>Contents</h2></summary>
 
