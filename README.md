@@ -1,9 +1,9 @@
 # Character Counter
-![tests](https://github.com/bskyprism/character-counter/actions/workflows/nodejs.yml/badge.svg)
+[![tests](https://img.shields.io/github/actions/workflow/status/bskyprism/character-counter/nodejs.yml?style=flat-square)](https://github.com/bskyprism/character-counter/actions/workflows/nodejs.yml)
 [![types](https://img.shields.io/npm/types/@bskyprism/character-counter?style=flat-square)](README.md)
 [![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
 [![install size](https://flat.badgen.net/packagephobia/install/@bicycle-codes/keys?cache-control=no-cache)](https://packagephobia.com/result?p=@bicycle-codes/keys)
-[![GZip size](https://img.badgesize.io/https%3A%2F%2Fesm.sh%2F%40bskyprism%2Fcharacter-counter%2Fes2022%2Ffile.mjs?style=flat-square&compression=gzip)](https://esm.sh/@substrate-system/character-counter/es2022/character-counter.mjs)
+[![gzip size](https://img.shields.io/bundlephobia/minzip/@bskyprism/character-counter?style=flat-square)](https://bundlephobia.com/package/@bskyprism/character-counter)
 [![dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg?style=flat-square)](package.json)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
