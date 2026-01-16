@@ -19,6 +19,8 @@ inspired by Bluesky's post composer.
 - **[No Shadow DOM](https://gomakethings.com/podcast/the-shadow-dom-is-an-anti-pattern/)**
 - **Accessible** - ARIA labels and screen reader support
 
+<details><summary><h2>Contents</h2></summary>
+
 <!-- toc -->
 
 - [Install](#install)
@@ -41,6 +43,8 @@ inspired by Bluesky's post composer.
   * [Use in HTML](#use-in-html-1)
 
 <!-- tocstop -->
+
+</details>
 
 ## Install
 
