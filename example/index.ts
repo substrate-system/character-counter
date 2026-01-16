@@ -2,5 +2,5 @@ import '../src/index.css'
 import '../src/index.js'
 
 document.body.innerHTML += `
-    <{{component-name}}></{{component-name}}>
+    <character-counter></character-counter>
 `

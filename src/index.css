@@ -1,10 +1,10 @@
 /**
  * Don't show until JavaScript is instantiated
  */
-{{component-name}}:not(:defined) {
+character-counter:not(:defined) {
 	display: none;
 }
 
-{{component-name}} {
+character-counter {
     background-color: red;
 }
