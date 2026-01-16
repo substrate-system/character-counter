@@ -25,7 +25,6 @@ inspired by Bluesky's post composer.
 - [Use](#use)
   * [Basic Example](#basic-example)
   * [Dynamic Updates](#dynamic-updates)
-  * [Toggling Display Attributes](#toggling-display-attributes)
 - [Attributes](#attributes)
   * [Display Behavior](#display-behavior)
 - [Data Attributes](#data-attributes)

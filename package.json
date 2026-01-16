@@ -1,6 +1,6 @@
 {
   "name": "@bskyprism/character-counter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Count characters",
   "type": "module",
   "exports": {
