@@ -51,12 +51,26 @@ Or minified:
 import '@bskyprism/character-counter/min/css'
 ```
 
-### Customize CSS via some variables
+### CSS variables
+
+How it works:                                                                 
+- Default is set in the CSS: `--counter-diameter: 2rem;`
+- The TypeScript reads this value and calculates the radius and circumference.
+- You can override it globally or per-component.
+                                                                                
+                                                                                
+#### Change All Counters
 
 ```css
-character-counter {
-    --example: pink;
-}
+character-counter {                                                           
+    --counter-diameter: 32px;                                                 
+}                                                                             
+```
+
+#### Change One Counter
+
+```html
+<character-counter style="--counter-diameter: 3rem"></character-counter>   
 ```
 
 ## Use

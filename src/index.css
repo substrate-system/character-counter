@@ -1,10 +1,70 @@
 /**
- * Don't show until JavaScript is instantiated
+ * Don't show until its ready.
  */
 character-counter:not(:defined) {
 	display: none;
 }
 
 character-counter {
-    background-color: red;
+    --counter-diameter: 2rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    & .counter-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        & > * {
+            min-width: 2rem;
+            text-align: left;
+        }
+    }
+
+    & .remaining {
+        font-weight: 400;
+        color: var(--counter-text-color, #536471);
+        text-align: right;
+    }
+
+    & .circle-container {
+        width: var(--counter-diameter);
+        height: var(--counter-diameter);
+        transform: rotate(-90deg);
+    }
+
+    & .track {
+        fill: none;
+        stroke: var(--counter-track-color, #e0e0e0);
+        stroke-width: 3;
+    }
+
+    & .progress {
+        fill: none;
+        stroke: var(--counter-normal-color, #1d9bf0);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-dasharray: var(--circumference);
+        stroke-dashoffset: var(--offset);
+        transition: stroke-dashoffset 0.15s ease-out, stroke 0.15s ease-out;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    /* Over-limit state */
+    &[data-over-limit] {
+        & .remaining {
+            color: var(--counter-warning-color, #f4212e);
+        }
+
+        & .progress {
+            stroke: var(--counter-warning-color, #f4212e);
+        }
+    }
 }

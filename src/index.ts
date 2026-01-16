@@ -12,15 +12,22 @@ declare global {
 /**
  * <character-counter> - A visual character counter with circular progress
  *
+ * Built without Shadow DOM following HTML-first principles. All styles are
+ * defined in index.css and scoped with the custom element selector.
+ *
  * Attributes:
  *   - max: Maximum character count (default: 300)
  *   - count: Current character count (default: 0)
  *
- * CSS Custom Properties:
+ * CSS Custom Properties for theming:
+ *   - --counter-diameter: Circle diameter (default: 24px)
  *   - --counter-track-color: Background ring color (default: #e0e0e0)
  *   - --counter-normal-color: Progress color when under limit (default: #1d9bf0)
  *   - --counter-warning-color: Progress color when over limit (default: #f4212e)
  *   - --counter-text-color: Text color for remaining count (default: #536471)
+ *
+ * Data Attributes (set automatically):
+ *   - data-over-limit: Present when count exceeds max
  *
  * Usage:
  *   <character-counter max="300" count="50"></character-counter>
@@ -28,17 +35,16 @@ declare global {
 export class CharacterCounter extends HTMLElement {
     static observedAttributes = ['max', 'count']
 
-    constructor () {
-        super()
-        this.attachShadow({ mode: 'open' })
-    }
-
     get max ():number {
         return parseInt(this.getAttribute('max') ?? '300', 10)
     }
 
     get count ():number {
         return parseInt(this.getAttribute('count') ?? '0', 10)
+    }
+
+    set count (n) {
+        this.setAttribute('count', '' + n)
     }
 
     get remaining ():number {
@@ -61,7 +67,7 @@ export class CharacterCounter extends HTMLElement {
 
     attributeChangedCallback (name:string, oldValue:string, newValue:string) {
         debug('attribute changed', name, oldValue, newValue)
-        if (this.shadowRoot && this.isConnected) {
+        if (this.isConnected) {
             this.render()
         }
     }
@@ -71,82 +77,32 @@ export class CharacterCounter extends HTMLElement {
     }
 
     connectedCallback () {
-        debug('connected')
         this.render()
     }
 
     render () {
-        if (!this.shadowRoot) return
-
-        const size = 24
-        const strokeWidth = 2
+        // Get the diameter from CSS variable
+        const computedStyle = getComputedStyle(this)
+        const size = parseFloat(computedStyle.getPropertyValue('--counter-diameter')) || 24
+        const strokeWidth = 3
         const radius = (size - strokeWidth) / 2
         const circumference = 2 * Math.PI * radius
         const offset = circumference - (this.progress * circumference)
 
-        // Colors
-        const trackColor = 'var(--counter-track-color, #e0e0e0)'
-        const normalColor = 'var(--counter-normal-color, #1d9bf0)'
-        const warningColor = 'var(--counter-warning-color, #f4212e)'
-        const progressColor = this.isOverLimit ? warningColor : normalColor
-        const textColor = this.isOverLimit
-            ? warningColor
-            : 'var(--counter-text-color, #536471)'
+        // Set CSS custom properties for dynamic values
+        this.style.setProperty('--circumference', String(circumference))
+        this.style.setProperty('--offset', String(offset))
 
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 4px;
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                }
+        // Set data attribute for over-limit state
+        if (this.isOverLimit) {
+            this.setAttribute('data-over-limit', '')
+        } else {
+            this.removeAttribute('data-over-limit')
+        }
 
-                .counter-wrapper {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 4px;
-                }
-
-                .remaining {
-                    font-size: 13px;
-                    font-weight: 400;
-                    color: ${textColor};
-                    min-width: 2ch;
-                    text-align: right;
-                }
-
-                .circle-container {
-                    width: ${size}px;
-                    height: ${size}px;
-                    transform: rotate(-90deg);
-                }
-
-                .track {
-                    fill: none;
-                    stroke: ${trackColor};
-                    stroke-width: ${strokeWidth};
-                }
-
-                .progress {
-                    fill: none;
-                    stroke: ${progressColor};
-                    stroke-width: ${strokeWidth};
-                    stroke-linecap: round;
-                    stroke-dasharray: ${circumference};
-                    stroke-dashoffset: ${offset};
-                    transition: stroke-dashoffset 0.15s ease-out, stroke 0.15s ease-out;
-                }
-
-                @media (prefers-reduced-motion: reduce) {
-                    .progress {
-                        transition: none;
-                    }
-                }
-            </style>
-
+        this.innerHTML = `
             <div class="counter-wrapper">
-                ${this.isNearLimit ? `<span class="remaining">${this.remaining}</span>` : ''}
+                <span class="remaining">${this.remaining}</span>
                 <svg class="circle-container" viewBox="0 0 ${size} ${size}" aria-hidden="true">
                     <circle
                         class="track"
