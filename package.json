@@ -1,6 +1,6 @@
 {
   "name": "@substrate-system/character-counter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Count characters",
   "type": "module",
   "exports": {
