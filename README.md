@@ -146,11 +146,12 @@ Customize the appearance using CSS variables:
 | Property | Default | Description |
 |----------|---------|-------------|
 | `--counter-diameter` | `2rem` | Circle diameter (supports any CSS unit) |
-| `--counter-stroke-width` | `4` | Circle stroke width in pixels |
+| `--counter-stroke-width` | `3` | Circle stroke width in pixels |
 | `--counter-track-color` | `#e0e0e0` | Background ring color |
 | `--counter-normal-color` | `#1d9bf0` | Progress color when under limit |
 | `--counter-warning-color` | `#f4212e` | Progress color when over limit |
 | `--counter-text-color` | `#536471` | Remaining count text color |
+
 
 ### Change size globally
 

@@ -161,10 +161,9 @@ export class CharacterCounter extends HTMLElement {
         // Update aria-label for screen readers
         this.setAttribute('role', 'status')
         this.setAttribute('aria-live', 'polite')
-        this.setAttribute('aria-label',
-            this.isOverLimit
-                ? `${Math.abs(this.remaining)} characters over limit`
-                : `${this.remaining} characters remaining`
+        this.setAttribute('aria-label', this.isOverLimit ?
+            `${Math.abs(this.remaining)} characters over limit` :
+            `${this.remaining} characters remaining`
         )
     }
 }
