@@ -59,6 +59,15 @@ npm i -S @substrate-system/character-counter
 This calls the global function `customElements.define`. Just import,
 then use the tag in your HTML.
 
+> [!NOTE]  
+> The tag name is exposed at `CharacterCounter.TAG`
+
+```ts
+import { CharacterCounter } from '@substrate-system/character-counter'
+
+document.querySelector(CharacterCounter.TAG)  // 'character-counter' tag
+```
+
 #### Import JavaScript
 
 ```js
