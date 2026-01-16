@@ -1,11 +1,8 @@
 {
   "name": "@bskyprism/character-counter",
-  "type": "module",
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "files": [
-    "./dist/*"
-  ],
+  "description": "Count characters",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -22,6 +19,15 @@
       "require": "./dist/*.cjs"
     }
   },
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "files": [
+    "./dist/*"
+  ],
   "scripts": {
     "lint": "eslint \"./**/*.{ts,js}\"",
     "test": "esbuild --bundle ./test/index.ts | tapout",
@@ -67,6 +73,20 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.0"
   },
-  "author": "nichoth <nichoth@nichoth.com> (https://nichoth.com)",
-  "license": "SEE LICENSE IN LICENSE"
+  "keywords": [
+    "count",
+    "character",
+    "web",
+    "component"
+  ],
+  "homepage": "https://github.com/bskyprism/character-counter#readme",
+  "bugs": {
+    "url": "https://github.com/bskyprism/character-counter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bskyprism/character-counter.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "nichoth <nichoth@nichoth.com> (https://nichoth.com)"
 }
