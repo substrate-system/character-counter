@@ -26,7 +26,6 @@ character-counter {
 
     & .remaining {
         font-weight: 400;
-        color: var(--counter-text-color, #536471);
         text-align: right;
     }
 

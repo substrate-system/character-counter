@@ -41,6 +41,7 @@ declare global {
  */
 export class CharacterCounter extends HTMLElement {
     static observedAttributes = ['max', 'count', 'hide-count', 'warn']
+    static TAG = 'character-counter'
 
     get max ():number {
         return parseInt(this.getAttribute('max') ?? '300', 10)
@@ -168,4 +169,4 @@ export class CharacterCounter extends HTMLElement {
     }
 }
 
-define('character-counter', CharacterCounter)
+define(CharacterCounter.TAG, CharacterCounter)
