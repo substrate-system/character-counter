@@ -57,6 +57,7 @@
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "lightningcss": "^1.30.2",
+    "lightningcss-cli": "^1.30.2",
     "markdown-toc": "^1.2.0",
     "stylelint": "^16.19.1",
     "stylelint-config-standard": "^39.0.1",
