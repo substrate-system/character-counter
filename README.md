@@ -99,23 +99,6 @@ Or use the setter:
 counter.count = textarea.value.length
 ```
 
-### Toggling Display Attributes
-
-The `hide-count` and `warn` attributes can be dynamically added or removed:
-
-```js
-const counter = document.querySelector('character-counter')
-
-// Enable warning mode (only show count near limit)
-counter.setAttribute('warn', '')
-
-// Hide count completely
-counter.setAttribute('hide-count', '')
-
-// Remove hide-count to show count again
-counter.removeAttribute('hide-count')
-```
-
 ## Attributes
 
 | Attribute | Type | Default | Description |
@@ -244,7 +227,9 @@ console.log(counter.shouldShowCount) // boolean
 
 ## Pre-Built Files
 
-This package exposes minified JS and CSS files. Copy them to a location accessible to your web server, then link to them in HTML.
+This package exposes minified JS and CSS files.
+Copy them to a location accessible to your web server,
+then link to them in HTML.
 
 ### Copy Files
 ```sh
