@@ -1,5 +1,5 @@
 {
-  "name": "@bskyprism/character-counter",
+  "name": "@substrate-system/character-counter",
   "version": "0.0.2",
   "description": "Count characters",
   "type": "module",
@@ -79,13 +79,13 @@
     "web",
     "component"
   ],
-  "homepage": "https://github.com/bskyprism/character-counter#readme",
+  "homepage": "https://github.com/substrate-system/character-counter#readme",
   "bugs": {
-    "url": "https://github.com/bskyprism/character-counter/issues"
+    "url": "https://github.com/substrate-system/character-counter/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bskyprism/character-counter.git"
+    "url": "git+https://github.com/substrate-system/character-counter.git"
   },
   "license": "SEE LICENSE IN LICENSE",
   "author": "nichoth <nichoth@nichoth.com> (https://nichoth.com)"

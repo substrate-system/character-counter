@@ -1,9 +1,9 @@
 # Character Counter
-[![tests](https://img.shields.io/github/actions/workflow/status/bskyprism/character-counter/nodejs.yml?style=flat-square)](https://github.com/bskyprism/character-counter/actions/workflows/nodejs.yml)
-[![types](https://img.shields.io/npm/types/@bskyprism/character-counter?style=flat-square)](README.md)
+[![tests](https://img.shields.io/github/actions/workflow/status/substrate-system/character-counter/nodejs.yml?style=flat-square)](https://github.com/substrate-system/character-counter/actions/workflows/nodejs.yml)
+[![types](https://img.shields.io/npm/types/@substrate-system/character-counter?style=flat-square)](README.md)
 [![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
-[![install size](https://flat.badgen.net/packagephobia/install/@bskyprism/character-counter?cache-control=no-cache)](https://packagephobia.com/result?p=@bskyprism/character-counter)
-[![gzip size](https://img.shields.io/bundlephobia/minzip/@bskyprism/character-counter?style=flat-square)](https://bundlephobia.com/package/@bskyprism/character-counter)
+[![install size](https://flat.badgen.net/packagephobia/install/@substrate-system/character-counter?cache-control=no-cache)](https://packagephobia.com/result?p=@substrate-system/character-counter)
+[![gzip size](https://img.shields.io/bundlephobia/minzip/@substrate-system/character-counter?style=flat-square)](https://bundlephobia.com/package/@substrate-system/character-counter)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
 [![license](https://img.shields.io/badge/license-Big_Time-blue?style=flat-square)](LICENSE)
@@ -11,7 +11,7 @@
 A visual character counter web component with a circular progress indicator,
 inspired by Bluesky's post composer.
 
-[See a live demo](https://bskyprism.github.io/character-counter/)
+[See a live demo](https://substrate-system.github.io/character-counter/)
 
 
 ## _Featuring_
@@ -45,7 +45,7 @@ inspired by Bluesky's post composer.
 ## Install
 
 ```sh
-npm i -S @bskyprism/character-counter
+npm i -S @substrate-system/character-counter
 ```
 
 ## Use
@@ -58,18 +58,18 @@ then use the tag in your HTML.
 #### Import JavaScript
 
 ```js
-import '@bskyprism/character-counter'
+import '@substrate-system/character-counter'
 ```
 
 #### Import CSS
 
 ```js
-import '@bskyprism/character-counter/css'
+import '@substrate-system/character-counter/css'
 ```
 
 Or minified:
 ```js
-import '@bskyprism/character-counter/min/css'
+import '@substrate-system/character-counter/min/css'
 ```
 
 #### Use in HTML
@@ -191,15 +191,15 @@ This exposes ESM and common JS via
 
 ### ESM
 ```js
-import '@bskyprism/character-counter'
+import '@substrate-system/character-counter'
 // Named import
-import { CharacterCounter } from '@bskyprism/character-counter'
+import { CharacterCounter } from '@substrate-system/character-counter'
 ```
 
 ### Common JS
 
 ```js
-require('@bskyprism/character-counter')
+require('@substrate-system/character-counter')
 ```
 
 ### TypeScript
@@ -231,8 +231,8 @@ then link to them in HTML.
 
 ### Copy Files
 ```sh
-cp ./node_modules/@bskyprism/character-counter/dist/index.min.js ./public/character-counter.min.js
-cp ./node_modules/@bskyprism/character-counter/dist/style.min.css ./public/character-counter.css
+cp ./node_modules/@substrate-system/character-counter/dist/index.min.js ./public/character-counter.min.js
+cp ./node_modules/@substrate-system/character-counter/dist/style.min.css ./public/character-counter.css
 ```
 
 ### Use in HTML
