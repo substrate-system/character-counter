@@ -1,4 +1,5 @@
 textarea {
     min-height: 8rem;
     width: 50vw;
+    padding: 1rem;
 }

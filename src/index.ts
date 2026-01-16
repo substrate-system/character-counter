@@ -20,7 +20,8 @@ declare global {
  *   - count: Current character count (default: 0)
  *
  * CSS Custom Properties for theming:
- *   - --counter-diameter: Circle diameter (default: 24px)
+ *   - --counter-diameter: Circle diameter (default: 2rem)
+ *   - --counter-stroke-width: Circle stroke width (default: 3)
  *   - --counter-track-color: Background ring color (default: #e0e0e0)
  *   - --counter-normal-color: Progress color when under limit (default: #1d9bf0)
  *   - --counter-warning-color: Progress color when over limit (default: #f4212e)
@@ -81,18 +82,6 @@ export class CharacterCounter extends HTMLElement {
     }
 
     render () {
-        // Get the diameter from CSS variable
-        const computedStyle = getComputedStyle(this)
-        const size = parseFloat(computedStyle.getPropertyValue('--counter-diameter')) || 24
-        const strokeWidth = 3
-        const radius = (size - strokeWidth) / 2
-        const circumference = 2 * Math.PI * radius
-        const offset = circumference - (this.progress * circumference)
-
-        // Set CSS custom properties for dynamic values
-        this.style.setProperty('--circumference', String(circumference))
-        this.style.setProperty('--offset', String(offset))
-
         // Set data attribute for over-limit state
         if (this.isOverLimit) {
             this.setAttribute('data-over-limit', '')
@@ -100,25 +89,41 @@ export class CharacterCounter extends HTMLElement {
             this.removeAttribute('data-over-limit')
         }
 
+        // First render the HTML structure
         this.innerHTML = `
             <div class="counter-wrapper">
                 <span class="remaining">${this.remaining}</span>
-                <svg class="circle-container" viewBox="0 0 ${size} ${size}" aria-hidden="true">
-                    <circle
-                        class="track"
-                        cx="${size / 2}"
-                        cy="${size / 2}"
-                        r="${radius}"
-                    />
-                    <circle
-                        class="progress"
-                        cx="${size / 2}"
-                        cy="${size / 2}"
-                        r="${radius}"
-                    />
+                <svg class="circle-container" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="track" cx="50" cy="50" r="47.5" />
+                    <circle class="progress" cx="50" cy="50" r="47.5" />
                 </svg>
             </div>
         `
+
+        // Now get the actual rendered size in pixels
+        const svg = this.querySelector('.circle-container') as SVGElement
+        if (svg) {
+            const rect = svg.getBoundingClientRect()
+            const size = rect.width || 24
+            const computedStyle = getComputedStyle(this)
+            const strokeWidth = parseFloat(computedStyle.getPropertyValue('--counter-stroke-width')) || 3
+            const radius = (size - strokeWidth) / 2
+            const circumference = 2 * Math.PI * radius
+            const offset = circumference - (this.progress * circumference)
+
+            // Set CSS custom properties for dynamic values
+            this.style.setProperty('--circumference', String(circumference))
+            this.style.setProperty('--offset', String(offset))
+
+            // Update SVG viewBox to match the actual pixel size
+            svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
+            const circles = svg.querySelectorAll('circle')
+            circles.forEach(circle => {
+                circle.setAttribute('cx', String(size / 2))
+                circle.setAttribute('cy', String(size / 2))
+                circle.setAttribute('r', String(radius))
+            })
+        }
 
         // Update aria-label for screen readers
         this.setAttribute('role', 'status')

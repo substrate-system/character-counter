@@ -7,6 +7,7 @@ character-counter:not(:defined) {
 
 character-counter {
     --counter-diameter: 2rem;
+    --counter-stroke-width: 4;
 
     display: inline-flex;
     align-items: center;
@@ -40,13 +41,13 @@ character-counter {
     & .track {
         fill: none;
         stroke: var(--counter-track-color, #e0e0e0);
-        stroke-width: 3;
+        stroke-width: var(--counter-stroke-width);
     }
 
     & .progress {
         fill: none;
         stroke: var(--counter-normal-color, #1d9bf0);
-        stroke-width: 3;
+        stroke-width: var(--counter-stroke-width);
         stroke-linecap: round;
         stroke-dasharray: var(--circumference);
         stroke-dashoffset: var(--offset);
