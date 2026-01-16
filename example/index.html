@@ -7,9 +7,24 @@
     <title>Counter Example</title>
 </head>
 <body>
+    <h1>Character Counter Examples</h1>
+
     <form>
-      <textarea name="abc" id="abc" placeholder="abc"></textarea>
-      <character-counter></character-counter>
+      <h2>Default (always show count)</h2>
+      <textarea name="abc" id="abc" placeholder="Type something..."></textarea>
+      <character-counter id="counter-default" max="300" count="0"></character-counter>
+    </form>
+
+    <form>
+      <h2>With "warn" (only show when near limit)</h2>
+      <textarea id="warn" placeholder="Type something..."></textarea>
+      <character-counter id="counter-warn" max="300" count="0" warn></character-counter>
+    </form>
+
+    <form>
+      <h2>With "hide-count" (never show count)</h2>
+      <textarea id="hidden" placeholder="Type something..."></textarea>
+      <character-counter id="counter-hidden" max="300" count="0" hide-count></character-counter>
     </form>
 
     <script type="module" src="./index.ts"></script>

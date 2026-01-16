@@ -22,7 +22,6 @@ character-counter {
 
         & > * {
             min-width: 2rem;
-            text-align: left;
         }
     }
 
@@ -30,6 +29,11 @@ character-counter {
         font-weight: 400;
         color: var(--counter-text-color, #536471);
         text-align: right;
+    }
+
+    /* Hide count when data-hide-count is present */
+    &[data-hide-count] .remaining {
+        visibility: hidden;
     }
 
     & .circle-container {

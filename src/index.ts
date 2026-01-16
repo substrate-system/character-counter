@@ -18,6 +18,9 @@ declare global {
  * Attributes:
  *   - max: Maximum character count (default: 300)
  *   - count: Current character count (default: 0)
+ *   - hide-count: Boolean attribute - when present, never shows the remaining count text
+ *   - warn: Boolean attribute - when present, only shows count when within 20 of limit
+ *            (has no effect if hide-count is present)
  *
  * CSS Custom Properties for theming:
  *   - --counter-diameter: Circle diameter (default: 2rem)
@@ -29,12 +32,15 @@ declare global {
  *
  * Data Attributes (set automatically):
  *   - data-over-limit: Present when count exceeds max
+ *   - data-hide-count: Present when count text should be hidden (uses visibility: hidden)
  *
  * Usage:
  *   <character-counter max="300" count="50"></character-counter>
+ *   <character-counter max="300" count="50" hide-count></character-counter>
+ *   <character-counter max="300" count="50" warn></character-counter>
  */
 export class CharacterCounter extends HTMLElement {
-    static observedAttributes = ['max', 'count']
+    static observedAttributes = ['max', 'count', 'hide-count', 'warn']
 
     get max ():number {
         return parseInt(this.getAttribute('max') ?? '300', 10)
@@ -46,6 +52,14 @@ export class CharacterCounter extends HTMLElement {
 
     set count (n) {
         this.setAttribute('count', '' + n)
+    }
+
+    get hideCount ():boolean {
+        return this.hasAttribute('hide-count')
+    }
+
+    get warn ():boolean {
+        return this.hasAttribute('warn')
     }
 
     get remaining ():number {
@@ -64,6 +78,17 @@ export class CharacterCounter extends HTMLElement {
     get isNearLimit ():boolean {
         // Show number when less than 20 characters remaining
         return this.remaining <= 20
+    }
+
+    get shouldShowCount ():boolean {
+        // If hide-count is present, never show
+        if (this.hideCount) return false
+
+        // If warn is present, only show when near limit
+        if (this.warn) return this.isNearLimit
+
+        // Otherwise, always show
+        return true
     }
 
     attributeChangedCallback (name:string, oldValue:string, newValue:string) {
@@ -87,6 +112,13 @@ export class CharacterCounter extends HTMLElement {
             this.setAttribute('data-over-limit', '')
         } else {
             this.removeAttribute('data-over-limit')
+        }
+
+        // Set visibility attribute for count
+        if (this.shouldShowCount) {
+            this.removeAttribute('data-hide-count')
+        } else {
+            this.setAttribute('data-hide-count', '')
         }
 
         // First render the HTML structure
