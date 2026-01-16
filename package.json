@@ -1,6 +1,5 @@
 {
   "name": "@bskyprism/character-counter",
-  "private": true,
   "type": "module",
   "version": "0.0.0",
   "main": "dist/index.js",
@@ -25,7 +24,7 @@
   },
   "scripts": {
     "lint": "eslint \"./**/*.{ts,js}\"",
-    "test": "esbuild ./test/index.ts | tapout",
+    "test": "esbuild --bundle ./test/index.ts | tapout",
     "build-css": "lightningcss --nesting src/index.css -o dist/index.css",
     "build-css:min": "lightningcss --nesting --minify src/index.css -o dist/index.min.css",
     "build-cjs": "esbuild src/*.ts --format=cjs --keep-names --tsconfig=tsconfig.build.json --outdir=./dist --out-extension:.js=.cjs --sourcemap",
@@ -52,6 +51,7 @@
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "auto-changelog": "^2.4.0",
+    "axe-core": "^4.11.1",
     "browserslist": "^4.28.1",
     "esbuild": "^0.27.2",
     "eslint": "^8.57.0",
