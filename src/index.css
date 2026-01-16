@@ -12,7 +12,6 @@ character-counter {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
     & .counter-wrapper {
         display: flex;
