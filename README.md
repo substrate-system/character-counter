@@ -26,10 +26,13 @@ inspired by Bluesky's post composer.
 - [Use](#use)
   * [Basic Example](#basic-example)
   * [Dynamic Updates](#dynamic-updates)
+  * [Toggling Display Attributes](#toggling-display-attributes)
 - [Attributes](#attributes)
+  * [Display Behavior](#display-behavior)
 - [Data Attributes](#data-attributes)
 - [CSS Custom Properties](#css-custom-properties)
-  * [Customization Examples](#customization-examples)
+  * [Change size globally](#change-size-globally)
+  * [Change colors](#change-colors)
 - [Behavior](#behavior)
 - [API](#api)
   * [ESM](#esm)
@@ -38,9 +41,6 @@ inspired by Bluesky's post composer.
 - [Pre-Built Files](#pre-built-files)
   * [Copy Files](#copy-files)
   * [Use in HTML](#use-in-html-1)
-- [Design Philosophy](#design-philosophy)
-- [Browser Support](#browser-support)
-- [License](#license)
 
 <!-- tocstop -->
 
