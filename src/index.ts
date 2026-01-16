@@ -19,8 +19,9 @@ declare global {
  *   - max: Maximum character count (default: 300)
  *   - count: Current character count (default: 0)
  *   - hide-count: Boolean attribute - when present, never shows the remaining count text
- *   - warn: Boolean attribute - when present, only shows count when within 20 of limit
- *            (has no effect if hide-count is present)
+ *   - warn: Boolean or number - when present as boolean, shows count when within 20 of limit;
+ *           when set to a number, shows count when that many characters remain
+ *           (has no effect if hide-count is present)
  *
  * CSS Custom Properties for theming:
  *   - --counter-diameter: Circle diameter (default: 2rem)
@@ -38,6 +39,7 @@ declare global {
  *   <character-counter max="300" count="50"></character-counter>
  *   <character-counter max="300" count="50" hide-count></character-counter>
  *   <character-counter max="300" count="50" warn></character-counter>
+ *   <character-counter max="300" count="50" warn="50"></character-counter>
  */
 export class CharacterCounter extends HTMLElement {
     static observedAttributes = ['max', 'count', 'hide-count', 'warn']
@@ -59,8 +61,12 @@ export class CharacterCounter extends HTMLElement {
         return this.hasAttribute('hide-count')
     }
 
-    get warn ():boolean {
-        return this.hasAttribute('warn')
+    get warn ():boolean | number {
+        const value = this.getAttribute('warn')
+        if (value === null) return false
+        if (value === '') return true
+        const parsed = parseInt(value, 10)
+        return isNaN(parsed) ? true : parsed
     }
 
     get remaining ():number {
@@ -77,16 +83,18 @@ export class CharacterCounter extends HTMLElement {
     }
 
     get isNearLimit ():boolean {
-        // Show number when less than 20 characters remaining
-        return this.remaining <= 20
+        // If warn is a number, use that as the threshold
+        // Otherwise default to 20 characters remaining
+        const threshold = typeof this.warn === 'number' ? this.warn : 20
+        return this.remaining <= threshold
     }
 
     get shouldShowCount ():boolean {
         // If hide-count is present, never show
         if (this.hideCount) return false
 
-        // If warn is present, only show when near limit
-        if (this.warn) return this.isNearLimit
+        // If warn is present (including 0), only show when near limit
+        if (this.warn !== false) return this.isNearLimit
 
         // Otherwise, always show
         return true

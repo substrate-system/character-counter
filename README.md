@@ -117,22 +117,26 @@ counter.count = textarea.value.length
 | `max` | number | `300` | Maximum character count |
 | `count` | number | `0` | Current character count |
 | `hide-count` | boolean | `false` | When present, never shows the remaining count text |
-| `warn` | boolean | `false` | When present, only shows count when within 20 of limit (ignored if `hide-count` is present) |
+| `warn` | boolean \| number | `false` | When present as boolean, shows count when within 20 of limit; when set to a number, shows count when that many characters remain (ignored if `hide-count` is present) |
 
 ### Display Behavior
 
 The component's text display behavior depends on these attributes:
 
 - **Default** (no attributes): Always shows the remaining count
-- **With `warn`**: Only shows count when 20 or fewer characters remain
+- **With `warn`** (boolean): Only shows count when 20 or fewer characters remain
+- **With `warn="N"`** (number): Only shows count when N or fewer characters remain
 - **With `hide-count`**: Never shows the count (takes precedence over `warn`)
 
 ```html
 <!-- Always show count -->
 <character-counter max="300" count="50"></character-counter>
 
-<!-- Only show count when near limit -->
+<!-- Only show count when near limit (20 characters) -->
 <character-counter max="300" count="285" warn></character-counter>
+
+<!-- Only show count when 50 or fewer characters remain -->
+<character-counter max="300" count="200" warn="50"></character-counter>
 
 <!-- Never show count -->
 <character-counter max="300" count="50" hide-count></character-counter>
@@ -233,7 +237,7 @@ counter.count = 42
 console.log(counter.remaining)      // number
 console.log(counter.isOverLimit)    // boolean
 console.log(counter.hideCount)      // boolean
-console.log(counter.warn)           // boolean
+console.log(counter.warn)           // boolean | number
 console.log(counter.shouldShowCount) // boolean
 ```
 

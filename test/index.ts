@@ -207,6 +207,103 @@ test('hide-count takes precedence over warn', async t => {
     cleanup()
 })
 
+test('warn with integer value: parses correctly', async t => {
+    const el = createCounter({ max: '300', count: '50', warn: '50' }) as HTMLElement & {
+        warn: boolean | number;
+    }
+    await waitFor('character-counter')
+
+    t.equal(el.warn, 50, 'warn should return 50 as a number')
+    cleanup()
+})
+
+test('warn with integer value: shows count at custom threshold', async t => {
+    const el = createCounter({ max: '300', count: '200', warn: '50' }) as HTMLElement & {
+        shouldShowCount: boolean;
+        count: number;
+        isNearLimit: boolean;
+    }
+    await waitFor('character-counter')
+
+    // 100 remaining, threshold is 50, should not show
+    t.equal(el.isNearLimit, false, 'should not be near limit with 100 remaining and threshold of 50')
+    t.equal(el.shouldShowCount, false, 'should not show count when far from custom threshold')
+    t.equal(el.hasAttribute('data-hide-count'), true, 'should have data-hide-count')
+
+    // Move to exactly the threshold
+    el.count = 250
+    t.equal(el.isNearLimit, true, 'should be near limit at exactly 50 remaining')
+    t.equal(el.shouldShowCount, true, 'should show count at threshold')
+    t.equal(el.hasAttribute('data-hide-count'), false, 'should not have data-hide-count')
+
+    // Move beyond threshold
+    el.count = 251
+    t.equal(el.isNearLimit, true, 'should be near limit with 49 remaining')
+    t.equal(el.shouldShowCount, true, 'should show count when under threshold')
+    cleanup()
+})
+
+test('warn with integer value: different thresholds', async t => {
+    const el1 = createCounter({ max: '200', count: '100', warn: '100' }) as HTMLElement & {
+        shouldShowCount: boolean;
+        warn: boolean | number;
+    }
+    await waitFor('character-counter')
+
+    t.equal(el1.warn, 100, 'warn should be 100')
+    t.equal(el1.shouldShowCount, true, 'should show count at 100 remaining with threshold 100')
+
+    cleanup()
+
+    const el2 = createCounter({ max: '200', count: '100', warn: '99' }) as HTMLElement & {
+        shouldShowCount: boolean;
+        warn: boolean | number;
+    }
+    await waitFor('character-counter')
+
+    t.equal(el2.warn, 99, 'warn should be 99')
+    t.equal(el2.shouldShowCount, false, 'should not show count at 100 remaining with threshold 99')
+
+    cleanup()
+})
+
+test('warn boolean vs integer: boolean defaults to 20', async t => {
+    const el = createCounter({ max: '300', count: '279', warn: '' }) as HTMLElement & {
+        warn: boolean | number;
+        isNearLimit: boolean;
+        count: number;
+    }
+    await waitFor('character-counter')
+
+    t.equal(el.warn, true, 'warn should be true (boolean)')
+    t.equal(el.isNearLimit, false, 'should not be near limit at 21 remaining')
+
+    el.count = 280
+    t.equal(el.isNearLimit, true, 'should be near limit at 20 remaining (default threshold)')
+
+    cleanup()
+})
+
+test('warn with zero value', async t => {
+    const el = createCounter({ max: '100', count: '50', warn: '0' }) as HTMLElement & {
+        warn: boolean | number;
+        shouldShowCount: boolean;
+        count: number;
+    }
+    await waitFor('character-counter')
+
+    t.equal(el.warn, 0, 'warn should be 0')
+    t.equal(el.shouldShowCount, false, 'should not show count with positive remaining and threshold 0')
+
+    el.count = 100
+    t.equal(el.shouldShowCount, true, 'should show count at 0 remaining')
+
+    el.count = 101
+    t.equal(el.shouldShowCount, true, 'should show count when over limit')
+
+    cleanup()
+})
+
 test('isNearLimit threshold', async t => {
     const el = createCounter({ max: '300', count: '279' }) as HTMLElement & {
         isNearLimit: boolean;
@@ -408,6 +505,18 @@ test('with warn attribute has no accessibility violations', async t => {
     document.body.innerHTML = `
         <main>
             <character-counter max="300" count="285" warn></character-counter>
+        </main>
+    `
+    await waitFor('character-counter')
+
+    await assertNoViolations(t, axeOptions)
+    cleanup()
+})
+
+test('with warn integer value has no accessibility violations', async t => {
+    document.body.innerHTML = `
+        <main>
+            <character-counter max="300" count="250" warn="50"></character-counter>
         </main>
     `
     await waitFor('character-counter')
